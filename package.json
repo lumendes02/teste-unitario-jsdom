@@ -1,0 +1,19 @@
+{
+  "name": "teste-unitario",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --env=jsdom"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^28.1.0"
+  },
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "jest-environment-jsdom": "^28.1.0"
+  }
+}
