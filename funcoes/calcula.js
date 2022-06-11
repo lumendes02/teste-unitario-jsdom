@@ -3,8 +3,9 @@ function calculaTotalPicanha(picanhaValor) {
 }
 
 
-function calculaMediaPessoa(media,adultosQuantidade,criancaQuantidade) {
-    return media / (adultosQuantidade + criancaQuantidade)
+function calculaMediaPessoa(media, pessoas) {
+    console.log(media, pessoas)
+    return media / pessoas
 }
 
 module.exports = {calculaTotalPicanha, calculaMediaPessoa}

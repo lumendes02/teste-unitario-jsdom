@@ -4,30 +4,53 @@ function calculaTotalPicanha(picanhaValor) {
 }
 
 
-function calculaMediaPessoa(media,adultosQuantidade,criancaQuantidade) {
-    return media / (adultosQuantidade + criancaQuantidade)
+function calculaMediaPessoa(media, pessoas) {
+    console.log(media, pessoas)
+    return media / pessoas
 }
 
 module.exports = {calculaTotalPicanha, calculaMediaPessoa}
 },{}],2:[function(require,module,exports){
 function validaCampos(picanhaValor, adultosQuantidade, criancaQuantidade) {
-    if (picanhaValor <= 0 || adultosQuantidade <= 0 || criancaQuantidade <= 0) {
+    if (picanhaValor <= 0 || adultosQuantidade <= 0) {
         if (document.getElementById('erro') == null) {
             var msgErro = document.createElement('p');
-            msgErro.id = 'erro'
-            msgErro.style.cssText = 'color:red;'
-            msgErro.innerHTML = 'Digite valor valido.'
+                msgErro.id = 'erro'
+                msgErro.style.cssText = 'color:red;'
+                msgErro.innerHTML = 'Digite valor valido.'
             document.body.appendChild(msgErro)
         }
         return true
     }
 }
 
-module.exports = { validaCampos }
+function pessoasSatisfeitas(totalGramaCarne, mediaPessoa) {
+    if (document.getElementById('erro') !== null) {
+        document.getElementById('erro').remove();
+    }
+    if (document.getElementById('totalCarne') == null) {
+        var dado = Math.floor( totalGramaCarne );
+        var msgtotal = document.createElement('p');
+            msgtotal.id = 'totalCarne'
+            msgtotal.style.cssText = 'color:black;'
+            msgtotal.innerHTML = 'total da carne: ' + dado + ' Gramas'
+        document.body.appendChild(msgtotal)
+    }
+    if (document.getElementById('media') == null) {
+        var dado = Math.floor( mediaPessoa );
+        var msgMedia = document.createElement('p');
+            msgMedia.id = 'media'
+            msgMedia.style.cssText = 'color:green;'
+            msgMedia.innerHTML = 'Media por pessoa: ' + dado + ' Gramas'
+        document.body.appendChild(msgMedia)
+    }
+}   
+
+module.exports = { validaCampos, pessoasSatisfeitas }
 },{}],3:[function(require,module,exports){
 // import validaCampos from './funcoes/verificacoes.js'
 const btn = document.querySelector("#acao");
-const {validaCampos} = require('./funcoes/verificacoes.js')
+const {validaCampos, pessoasSatisfeitas} = require('./funcoes/verificacoes.js')
 const {calculaTotalPicanha, calculaMediaPessoa} = require('./funcoes/calcula.js')
 
 
@@ -35,15 +58,14 @@ btn.addEventListener("click", function(e) {
     e.preventDefault();
    
     const picanhaValor = document.querySelector('#picanhaValor').value;
-    const adultosQuantidade = document.querySelector('#adultosQuantidade').value;
-    const criancaQuantidade = document.querySelector('#criancaQuantidade').value;
+    const adultosQuantidade = parseInt(document.querySelector('#adultosQuantidade').value);
+    const criancaQuantidade = parseInt(document.querySelector('#criancaQuantidade').value);
 
     if (validaCampos(picanhaValor,adultosQuantidade,criancaQuantidade) == true) return; 
 
-    var media = calculaTotalPicanha(picanhaValor);
+    var totalGramaCarne = calculaTotalPicanha(picanhaValor);
+    var mediaPessoa = calculaMediaPessoa(totalGramaCarne,adultosQuantidade + criancaQuantidade);
 
-    console.log(calculaTotalPicanha(picanhaValor))
-    console.log(calculaMediaPessoa(media,adultosQuantidade,criancaQuantidade))
-    
+    pessoasSatisfeitas(totalGramaCarne, mediaPessoa);
 })
 },{"./funcoes/calcula.js":1,"./funcoes/verificacoes.js":2}]},{},[3]);
