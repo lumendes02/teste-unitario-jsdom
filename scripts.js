@@ -1,6 +1,7 @@
 // import validaCampos from './funcoes/verificacoes.js'
 const btn = document.querySelector("#acao");
 const {validaCampos} = require('./funcoes/verificacoes.js')
+const {calculaTotalPicanha, calculaMediaPessoa} = require('./funcoes/calcula.js')
 
 
 btn.addEventListener("click", function(e) {
@@ -10,5 +11,11 @@ btn.addEventListener("click", function(e) {
     const adultosQuantidade = document.querySelector('#adultosQuantidade').value;
     const criancaQuantidade = document.querySelector('#criancaQuantidade').value;
 
-    validaCampos(0,0,0)
+    if (validaCampos(picanhaValor,adultosQuantidade,criancaQuantidade) == true) return; 
+
+    var media = calculaTotalPicanha(picanhaValor);
+
+    console.log(calculaTotalPicanha(picanhaValor))
+    console.log(calculaMediaPessoa(media,adultosQuantidade,criancaQuantidade))
+    
 })
